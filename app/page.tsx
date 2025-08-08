@@ -1,10 +1,29 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { getRandomCountry } from "./helpers/getRandomCountry";
 
 export default function Home() {
   const country = getRandomCountry();
   const { capital: capitalsList, flags: flag, name } = country;
+
+  useEffect(() => {
+    (async () => {
+      // const data = await fetch("/api/random-country");
+      // const post = await data.json();
+
+      // console.log("posts: ", post);
+
+      const res = await fetch("/api/validate-guess", {
+        method: "POST",
+        body: JSON.stringify({
+          guessedCountry: "Singapore",
+        }),
+      });
+
+      const data = await res.json();
+      console.log("response: ", data);
+    })();
+  }, []);
 
   return (
     <div>
