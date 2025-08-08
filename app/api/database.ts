@@ -8,13 +8,23 @@ export type countryType = {
     common: string;
     official: string;
     nativeName: {
-      lit: {
-        official: string;
-        common: string;
-      };
+      [key: string]:
+        | {
+            official: string;
+            common: string;
+          }
+        | undefined;
     };
   };
   capital: string[];
 };
 
-export let correctCountry: countryType;
+let correctCountry: countryType;
+
+export const setCorrectCountry = (country: countryType) => {
+  correctCountry = country;
+};
+
+export const getCorrectCountry = () => {
+  return correctCountry;
+};
