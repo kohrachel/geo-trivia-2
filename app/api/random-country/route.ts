@@ -1,5 +1,9 @@
 import { COUNTRIES } from "../../constants/countries";
+import { setCorrectCountry } from "../database";
 
 export async function GET() {
-  return Response.json(COUNTRIES[Math.floor(Math.random() * COUNTRIES.length)]);
+  const country = COUNTRIES[Math.floor(Math.random() * COUNTRIES.length)];
+  setCorrectCountry(country);
+
+  return Response.json(country);
 }
