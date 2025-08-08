@@ -37,35 +37,49 @@ export default function Game({ country }: GameProps) {
     setGuess("");
   };
   return (
-    <div>
+    <div className="w-full flex flex-col items-center">
       {/* Header */}
-      <h1 className="w-full text-center bg-blue-600">Guess the Country!</h1>
+      <h1 className="w-full text-center text-2xl bg-blue-600">
+        Guess the Country!
+      </h1>
       <h2 className="w-full text-center bg-blue-600">
         Can you guess the country based on its capital city and flag?
       </h2>
 
       {/* Hints */}
-      <ul className="w-full text-center bg-yellow-600">
-        Capital city/cities:{" "}
+      <ul className="w-full text-center">
+        <h3 className="p-3 text-xl">Capital city/cities:</h3>
         {capitalsList.map((capital, index) => (
           <li key={index}>{capital}</li>
         ))}
       </ul>
-      <div className="w-full text-center bg-yellow-600">Facts: </div>
-      <div className="flex flex-col w-full text-center items-center bg-yellow-600">
-        Flag:
-        {/* eslint-disable-next-line */}
-        <img src={flag.png} alt={flag.alt} className="h-64" />
+      <div className="w-full text-center bg-yellow-600">
+        <h3 className="p-3 text-xl">Facts:</h3>
+      </div>
+      <div className="flex flex-col w-full text-center items-center">
+        <h3 className="p-3 text-xl">Flag:</h3>
+        <div className="p-2 outline rounded-lg">
+          {/* eslint-disable-next-line */}
+          <img src={flag.png} alt={flag.alt} className="h-64" />
+        </div>
       </div>
 
       {/* Input */}
-      <form onSubmit={handleGuess} className="flex justify-center">
-        <input
-          placeholder="Guess the country!"
-          value={guess}
-          onChange={(e) => setGuess(e.target.value)}
-        />
-        <button>Guess</button>
+      <form
+        onSubmit={handleGuess}
+        className="flex flex-col justify-center w-max p-3 gap-3 rounded-md outline m-5"
+      >
+        <label htmlFor="country-guess">Type in your guess</label>
+        <div className="flex gap-3">
+          <input
+            id="country-guess"
+            placeholder="Guess the country!"
+            value={guess}
+            onChange={(e) => setGuess(e.target.value)}
+            className="rounded-md py-1 px-3 outline"
+          />
+          <button className="bg-blue-600 px-3 rounded-xl">Guess</button>
+        </div>
       </form>
 
       {/* Result */}
