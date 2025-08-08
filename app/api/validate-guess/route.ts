@@ -6,5 +6,8 @@ export async function POST(req: Request) {
   const correctCountryLower = getCorrectCountry().name.common.toLowerCase();
 
   const correct = guessedCountryLower.includes(correctCountryLower);
-  return Response.json({ correctGuess: correct });
+  return Response.json({
+    correctGuess: correct,
+    correctCountry: correctCountryLower,
+  });
 }
