@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { getRandomCountry } from "../helpers/getRandomCountry";
+import React, { useState } from "react";
 
-type FrontendCountryType = {
+export type FrontendCountryType = {
   capitalsList: string[];
   flag: {
     alt: string;
@@ -22,9 +21,10 @@ export default function Game({ country }: GameProps) {
 
   const { capitalsList, flag } = country;
 
-  const handleGuess = async (event) => {
+  const handleGuess = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("in handleGuess function");
+    // if (result === "success") return;
+    setResult("");
     const res = await fetch("/api/validate-guess", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -33,28 +33,9 @@ export default function Game({ country }: GameProps) {
     const data = await res.json();
 
     console.log({ data });
-    setResult(data.correct ? "success" : "");
+    setResult(data.correctGuess ? "success" : "error");
+    setGuess("");
   };
-
-  //   useEffect(() => {
-  //     (async () => {
-  //       // const data = await fetch("/api/random-country");
-  //       // const post = await data.json();
-
-  //       // console.log("posts: ", post);
-
-  //       const res = await fetch("/api/validate-guess", {
-  //         method: "POST",
-  //         body: JSON.stringify({
-  //           guessedCountry: "Singapore",
-  //         }),
-  //       });
-
-  //       const data = await res.json();
-  //       console.log("response: ", data);
-  //     })();
-  //   }, []);
-
   return (
     <div>
       {/* Header */}
@@ -89,6 +70,7 @@ export default function Game({ country }: GameProps) {
 
       {/* Result */}
       {result === "success" && <p>Success!</p>}
+      {result === "error" && <p>Nope! Try again :)</p>}
     </div>
   );
 }
