@@ -17,7 +17,11 @@ export default function Home() {
 
   const gameCountry = data;
 
-  return <Game country={gameCountry} />;
+  return (
+    <div>
+      <Game country={gameCountry} />
+    </div>
+  );
 }
 
 const countryFetcher = async (endpoint: string) => {
